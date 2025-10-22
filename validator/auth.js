@@ -14,8 +14,11 @@ const validateSignIn = [
     check('password')
         .isLength({ min: 6 }).withMessage('ምንሸ ነው በያ ያለ password ይሰራል እንዴ አ')
 ];
-
+const verificationValidator = [
+    check('email').isEmail().withMessage("ትክክለኛ Email ኣስገባ እንጂ በያ").notEmpty().withMessage("Email is ኣስፈላጊ ገቢቶ!")
+]
 module.exports = {
     validateSignUp,
-    validateSignIn
+    validateSignIn,
+    verificationValidator
 }

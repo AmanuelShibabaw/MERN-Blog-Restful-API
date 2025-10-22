@@ -4,6 +4,8 @@ const UserSchema = mongoose.Schema({
     name:{type:String,required:true},
     email:{type:String,required:true,unique:true},
     password:{type:String,required:true,minlength:6},
+    isVerified : {type: Boolean, default:false},
+    verificationCode: String,
     role:{type:Number,default:3}
 },{timestamps:true})
 
