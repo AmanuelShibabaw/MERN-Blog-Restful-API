@@ -74,5 +74,9 @@ const verifyEmail = async(req,res,next)=>{
     } catch (error) {
         next(error)
     }
+
+    const verifyUser = async(req,res,next)=>{
+        
+    }
 }
 module.exports = {SignUp,signIn,verifyEmail}
