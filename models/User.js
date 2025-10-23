@@ -6,6 +6,7 @@ const UserSchema = mongoose.Schema({
     password:{type:String,required:true,minlength:6},
     isVerified : {type: Boolean, default:false},
     verificationCode: String,
+    fogetPassCode:String, //ድንገት password ብትረሳ እንዳትደነግጥ እሺ
     role:{type:Number,default:3}
 },{timestamps:true})
 

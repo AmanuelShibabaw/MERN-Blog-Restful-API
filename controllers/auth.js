@@ -108,5 +108,27 @@ const verifyEmail = async(req,res,next)=>{
         }
        
     }
-    
-module.exports = {SignUp,signIn,verifyEmail,verifyUser}
+    const ForgetPass = async(req,res,next)=>{
+        try {
+            const {email} = req.body
+            const user = await User.findOne({email})
+            if(!user){
+                res.code = 404
+            throw new Error("Invalid Credentials  | user not found ")
+            }
+            const code = generateCode(6)
+            user.fogetPassCode = code
+            await user.save()
+            await sendCodeToEmail({
+                emailTo:user.email,
+                code,
+                subject:"Forgeted Password recovering",
+                content:"Change your password"
+            })
+            res.status(200).json({status:true,message:"forget pssword code sent to your email please checktout"})
+
+        } catch (error) {
+            next(error)
+        }
+    }
+module.exports = {SignUp,signIn,verifyEmail,verifyUser,ForgetPass}
