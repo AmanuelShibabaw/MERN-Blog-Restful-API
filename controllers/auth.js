@@ -55,9 +55,9 @@ const verifyEmail = async(req,res,next)=>{
         }
         if(!user.isVerified){
             const code = generateCode(6)
-            // user.verificationCode = code
+            user.verificationCode = code
             // user.isVerified = true
-            // await user.save()
+             await user.save()
             await sendCodeToEmail({
                 emailTo:user.email,
                 code,
@@ -74,9 +74,39 @@ const verifyEmail = async(req,res,next)=>{
     } catch (error) {
         next(error)
     }
+}
 
     const verifyUser = async(req,res,next)=>{
-        
+
+        try {
+             const {email,code} = req.body
+        const user = await User.findOne({email})
+        if(!user){
+            res.code = 404
+            throw new Error("Invalid Credentials")
+        } 
+        if(user.isVerified){
+            res.code = 400
+            throw new Error("You are already verified")
+        }
+        if(user && user.verificationCode===code){
+            user.isVerified = true
+            user.verificationCode = null
+            await user.save()
+            res.status(200).json({status:true,message:"peace በቃ ብሮ verified hunehal!"})
+        }
+        if(user.verificationCode!=code){
+            res.code = 400
+            throw new Error("Invalid Code !")
+        }
+        else{
+            res.code = 500
+            throw new Error("Unkown Eror Occured")
+        }
+        } catch (error) {
+            next(error)
+        }
+       
     }
-}
-module.exports = {SignUp,signIn,verifyEmail}
+    
+module.exports = {SignUp,signIn,verifyEmail,verifyUser}

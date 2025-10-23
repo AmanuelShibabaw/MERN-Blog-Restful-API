@@ -17,8 +17,14 @@ const validateSignIn = [
 const verificationValidator = [
     check('email').isEmail().withMessage("ትክክለኛ Email ኣስገባ እንጂ በያ").notEmpty().withMessage("Email is ኣስፈላጊ ገቢቶ!")
 ]
+
+const CodeValidator = [
+    check('code').isJSON().withMessage("There  Is no Code በያ codun emailsh lay ሹፊው እና ከች በይ!"),
+    check('email').isEmail().withMessage("ትክክለኛ Email ኣስገባ እንጂ በያ").notEmpty().withMessage("Email is ኣስፈላጊ ገቢቶ!")
+]
 module.exports = {
     validateSignUp,
     validateSignIn,
-    verificationValidator
+    verificationValidator,
+    CodeValidator
 }
