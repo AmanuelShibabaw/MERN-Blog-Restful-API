@@ -19,16 +19,23 @@ const verificationValidator = [
 ]
 
 const CodeValidator = [
-    check('code').isJSON().withMessage("There  Is no Code በያ codun emailsh lay ሹፊው እና ከች በይ!"),
+    check('code').notEmpty().withMessage("There  Is no Code በያ codun emailsh lay ሹፊው እና ከች በይ!"),
     check('email').isEmail().withMessage("ትክክለኛ Email ኣስገባ እንጂ በያ").notEmpty().withMessage("Email is ኣስፈላጊ ገቢቶ!")
 ]
 const emailValidator =[
      check('email').isEmail().withMessage("ትክክለኛ Email ኣስገባ እንጂ በያ").notEmpty().withMessage("Email is ኣስፈላጊ ገቢቶ!")
+]
+
+const recoverPassValidator = [
+     check('code').notEmpty().withMessage("There  Is no Code በያ codun emailsh lay ሹፊው እና ከች በይ!"),
+    check('email').isEmail().withMessage("ትክክለኛ Email ኣስገባ እንጂ በያ").notEmpty().withMessage("Email is ኣስፈላጊ ገቢቶ!"),
+    check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ]
 module.exports = {
     validateSignUp,
     validateSignIn,
     verificationValidator,
     CodeValidator,
-    emailValidator
+    emailValidator,
+    recoverPassValidator
 }

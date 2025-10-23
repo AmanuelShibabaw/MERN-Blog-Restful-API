@@ -131,4 +131,26 @@ const verifyEmail = async(req,res,next)=>{
             next(error)
         }
     }
-module.exports = {SignUp,signIn,verifyEmail,verifyUser,ForgetPass}
+    const recoverPassword = async(req,res,next)=>{
+        try {
+            const {email,code,password}= req.body
+            const user = await User.findOne({email})
+             if(!user){
+                res.code = 404
+            throw new Error("Invalid Credentials  | user not found ")
+            }
+            if(user.fogetPassCode===code){
+                const hashedPassword =await bcrypt.hash(password,10)
+                user.password = hashedPassword
+                await user.save()
+                res.status(200).json({code:200,status:true,message:"Paswoerd changed succesfully !"})
+            }
+            else{
+                res.code = 400
+                throw new Error("Invalid code Used")
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+module.exports = {SignUp,signIn,verifyEmail,verifyUser,ForgetPass,recoverPassword}
