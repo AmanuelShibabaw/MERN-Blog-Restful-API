@@ -2,7 +2,7 @@ const express = require('express')
 const {authController} = require('../controllers')
 const router = express.Router()
 const {validateSignUp,validateSignIn,verificationValidator, CodeValidator, emailValidator, recoverPassValidator} = require('../validator/auth') 
-
+const validateToken = require('../middleware/validateTokenAuth')
 const validate = require('../validator/validate')
 const { recoverPassword } = require('../controllers/auth')
 router.post('/signup',validateSignUp,validate,authController.SignUp)
@@ -11,4 +11,5 @@ router.post('/verify-email',verificationValidator,validate,authController.verify
 router.post('/verify-user',CodeValidator,validate,authController.verifyUser)
 router.post('/forget-pass',emailValidator,validate,authController.ForgetPass)
 router.post('/recover-pass',recoverPassValidator,validate,recoverPassword)
+router.put('/change-password',validateToken,authController.changePass)
 module.exports = router

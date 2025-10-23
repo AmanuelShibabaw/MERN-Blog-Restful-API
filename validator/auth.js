@@ -31,11 +31,16 @@ const recoverPassValidator = [
     check('email').isEmail().withMessage("ትክክለኛ Email ኣስገባ እንጂ በያ").notEmpty().withMessage("Email is ኣስፈላጊ ገቢቶ!"),
     check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ]
+const changePassValidator = [
+    check('oldpass').isEmail().withMessage("ኣጉል ኣትፈላሰፍ ባክህ ሚሰራ email ኣስገባ").notEmpty().withMessage("Enter የድሮ password!"),
+    check('newpass').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+]
 module.exports = {
     validateSignUp,
     validateSignIn,
     verificationValidator,
     CodeValidator,
     emailValidator,
-    recoverPassValidator
+    recoverPassValidator,
+    changePassValidator
 }

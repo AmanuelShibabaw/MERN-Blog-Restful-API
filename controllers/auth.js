@@ -142,6 +142,7 @@ const verifyEmail = async(req,res,next)=>{
             if(user.fogetPassCode===code){
                 const hashedPassword =await bcrypt.hash(password,10)
                 user.password = hashedPassword
+                user.forgetPassCode = null
                 await user.save()
                 res.status(200).json({code:200,status:true,message:"Paswoerd changed succesfully !"})
             }
@@ -153,4 +154,12 @@ const verifyEmail = async(req,res,next)=>{
             next(error)
         }
     }
-module.exports = {SignUp,signIn,verifyEmail,verifyUser,ForgetPass,recoverPassword}
+
+    const changePass = async(req,res,next)=>{
+        try {
+            res.status(200).json({ok:true,data:req.user})
+        } catch (error) {
+            
+        }
+    }
+module.exports = {SignUp,signIn,verifyEmail,verifyUser,ForgetPass,recoverPassword,changePass}
