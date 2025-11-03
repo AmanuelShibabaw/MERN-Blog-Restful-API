@@ -17,7 +17,7 @@ const SignUp =async (req,res,next)=>{
         res.status(201).json({code:201,status:true,message:"User signed up successfully"})
         console.log("User signedUp")
     } catch (error) {
-        // console.log(error) //በስንት መከራ ያገኘሁት bug ነው
+      //በስንት መከራ ያገኘሁት bug ነው
         next(error)
     }
 }
