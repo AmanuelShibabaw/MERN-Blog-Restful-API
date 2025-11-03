@@ -1,4 +1,5 @@
 const {check} = require('express-validator');
+const EmailValidate = require('./EmailValidator');
 
 const validateSignUp = [
     check('name')
@@ -34,6 +35,12 @@ const recoverPassValidator = [
 const changePassValidator = [
     check('oldpass').notEmpty().withMessage("Enter የድሮ password!"),
     check('newpass').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+]
+const profileupadtingValidator = [
+    check('email').custom(async(email)=>{
+        const valid = EmailValidate(email)
+        
+    }),
 ]
 module.exports = {
     validateSignUp,

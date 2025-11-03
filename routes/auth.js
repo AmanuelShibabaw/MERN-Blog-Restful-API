@@ -12,5 +12,5 @@ router.post('/verify-user',CodeValidator,validate,authController.verifyUser)
 router.post('/forget-pass',emailValidator,validate,authController.ForgetPass)
 router.post('/recover-pass',recoverPassValidator,validate,recoverPassword)
 router.put('/change-password',changePassValidator,validate,validateToken,authController.changePass)
-router.put('/update-profile',validateToken)
+router.put('/update-profile',validateToken,authController.updateProfile)
 module.exports = router
