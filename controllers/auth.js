@@ -179,4 +179,12 @@ const verifyEmail = async(req,res,next)=>{
             next(error)
         }
     }
-module.exports = {SignUp,signIn,verifyEmail,verifyUser,ForgetPass,recoverPassword,changePass}
+    const updateProfile = async(req,res,next)=>{
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
+module.exports = {SignUp,signIn,verifyEmail,verifyUser,updateProfile,
+    ForgetPass,recoverPassword,changePass}
