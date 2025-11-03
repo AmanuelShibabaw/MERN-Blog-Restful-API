@@ -181,7 +181,20 @@ const verifyEmail = async(req,res,next)=>{
     }
     const updateProfile = async(req,res,next)=>{
         try {
-            
+            const userId = req.user._id
+            const {name,email} = req.body
+            const user = await User.findById({_id:userId})
+            if(!user){
+                res.code = 404
+                throw new Error("User notfound ")
+            }
+            user.name = name ? name : user.name
+            user.email = email ?email:user.email
+            if(email){
+                user.isVerified = false
+            }
+
+            user.save()
         } catch (error) {
             
         }

@@ -39,7 +39,9 @@ const changePassValidator = [
 const profileupadtingValidator = [
     check('email').custom(async(email)=>{
         const valid = EmailValidate(email)
-        
+        if(!valid){
+            throw new Error("ልክ ያልሆነ email ነው በያ እስኪ ሚሰራ email ፈልግ ")
+        }
     }),
 ]
 module.exports = {
@@ -49,5 +51,7 @@ module.exports = {
     CodeValidator,
     emailValidator,
     recoverPassValidator,
-    changePassValidator
+    changePassValidator,
+    profileupadtingValidator
+
 }
