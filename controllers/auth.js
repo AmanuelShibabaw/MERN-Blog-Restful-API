@@ -97,7 +97,7 @@ const verifyEmail = async(req,res,next)=>{
         }
         if(user.verificationCode!=code){
             res.code = 400
-            throw new Error("Invalid Code !")
+            throw new Error("Invalid Code !")  //ያልሆነ ኮድ ከተጠቀሙ
         }
         else{
             res.code = 500
