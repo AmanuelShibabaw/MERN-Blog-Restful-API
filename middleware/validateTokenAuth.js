@@ -8,6 +8,7 @@ const validateToken = async(req,res,next)=>{
             const payload = jwt.verify(token,jwtSecr)
             if(payload){
                 req.user = payload
+                console.log(payload)
             }else{
                 res.code = 401
                 throw new Error("ህገ ወጥ ሰው is detected !")

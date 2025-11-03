@@ -157,9 +157,26 @@ const verifyEmail = async(req,res,next)=>{
 
     const changePass = async(req,res,next)=>{
         try {
-            res.status(200).json({ok:true,data:req.user})
+            const {oldpass,newpass} = req.body
+            const user = await User.findOne({email:req.user.email})
+            const match = await bcrypt.compare(oldpass,user.password)
+            if(!match){
+                res.code = 400
+                throw new Error("Invalid Credentials!")
+            }
+            if(match){
+                if(!user){
+                    res.code =400
+                    throw new Error("User no found")
+                }
+                user.password = await bcrypt.hash(newpass,10)
+                await user.save()
+                res.status(200).json({ok:true,message:"passwoed ተቀይሯል",data:req.user})
+            }
+
+           
         } catch (error) {
-            
+            next(error)
         }
     }
 module.exports = {SignUp,signIn,verifyEmail,verifyUser,ForgetPass,recoverPassword,changePass}

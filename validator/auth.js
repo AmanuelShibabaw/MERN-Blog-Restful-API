@@ -32,7 +32,7 @@ const recoverPassValidator = [
     check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ]
 const changePassValidator = [
-    check('oldpass').isEmail().withMessage("ኣጉል ኣትፈላሰፍ ባክህ ሚሰራ email ኣስገባ").notEmpty().withMessage("Enter የድሮ password!"),
+    check('oldpass').notEmpty().withMessage("Enter የድሮ password!"),
     check('newpass').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ]
 module.exports = {
