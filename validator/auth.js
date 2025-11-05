@@ -38,11 +38,14 @@ const changePassValidator = [
 ]
 const profileupadtingValidator = [
     check('email').custom(async(email)=>{
+        if(!email){
+            return true
+        }
         const valid = EmailValidate(email)
         if(!valid){
             throw new Error("ልክ ያልሆነ email ነው በያ እስኪ ሚሰራ email ፈልግ ")
         }
-    }).withMessage("Invalid Email Address"),
+    })
 ]
 module.exports = {
     validateSignUp,
