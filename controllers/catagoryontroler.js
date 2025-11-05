@@ -37,11 +37,16 @@ const updateCatagory = async(req,res,next)=>{
             res.code = 400
             throw new Error("catagory not found")
         }
+        const formerCata = await Catagory.findOne({title})
+        if(catagoryexi && catagoryexi.title ===title && String(formerCata.id)===String(catagoryexi.id)){
+            res.code = 400
+            throw new Error("catagory title already teken")
+        }
         catagoryexi.title = title || catagoryexi.title
-        catagoryexi.desc = desc || catagoryexi.desc
+        catagoryexi.desc = desc
         catagoryexi.modifiedBy = userId
         await catagoryexi.save()
-        res.status(200).json({code:200,status:true,message:"catagory updated successfully"})
+        res.status(200).json({code:200,status:true,message:"catagory updated successfully",data:catagoryexi})
     } catch (error) {
         next(error)
     }
