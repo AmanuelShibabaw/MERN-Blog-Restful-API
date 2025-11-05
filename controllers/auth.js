@@ -195,8 +195,9 @@ const verifyEmail = async(req,res,next)=>{
             }
 
             user.save()
+            res.status(200).json({code:200,status:true,message:"Profile updated successfully",data:user})
         } catch (error) {
-            
+            next(error)
         }
     }
 module.exports = {SignUp,signIn,verifyEmail,verifyUser,updateProfile,
