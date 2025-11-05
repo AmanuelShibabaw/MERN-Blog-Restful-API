@@ -1,3 +1,4 @@
 const authRoute = require('./auth')
+const catagoryRoute = require('./catagory')
 
-module.exports = {authRoute}
+module.exports = {authRoute,catagoryRoute}
