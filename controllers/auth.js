@@ -181,7 +181,7 @@ const verifyEmail = async(req,res,next)=>{
     }
     const updateProfile = async(req,res,next)=>{
         try {
-            const userId = req.user._id
+            const userId = req.user.id
             const {name,email} = req.body
             const user = await User.findById({_id:userId})
             if(!user){
