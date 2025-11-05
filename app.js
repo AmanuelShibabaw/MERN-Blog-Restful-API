@@ -14,7 +14,7 @@ app.use(express.json({limit: "500mb"}))
 app.use(bodyParser.urlencoded({limit: "500mb",extended: true }))
 app.use(morgan('dev'))//responsun console lay lemayet yteqmenal😁
 app.use('/api/v1/auth',authRoute)
-app.unsubscribe('/api/v1/catagory',catagoryRoute)
+app.use('/api/v1/catagory',catagoryRoute)
 app.use(notFound)
 app.use(errorHandler)
 
