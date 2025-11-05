@@ -42,7 +42,7 @@ const profileupadtingValidator = [
         if(!valid){
             throw new Error("ልክ ያልሆነ email ነው በያ እስኪ ሚሰራ email ፈልግ ")
         }
-    }),
+    }).withMessage("Invalid Email Address"),
 ]
 module.exports = {
     validateSignUp,
