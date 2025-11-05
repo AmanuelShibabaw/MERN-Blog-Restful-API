@@ -181,21 +181,27 @@ const verifyEmail = async(req,res,next)=>{
     }
     const updateProfile = async(req,res,next)=>{
         try {
-            const userId = req.user.id
             const {name,email} = req.body
-            const user = await User.findById({_id:userId})
+            const userId  = req.user.id
+            const user  = await User.findById({_id:userId})
             if(!user){
-                res.code = 404
-                throw new Error("User notfound ")
+                res.code = 400
+                throw new Error("User Not Foundd")
             }
-            user.name = name ? name : user.name
-            user.email = email ?email:user.email
-            if(email){
-                user.isVerified = false
+            
+            if(user){
+                if(email){
+                    const isThere = await User.findOne({email})
+                    if(isThere && String(isThere._id) !== String(user._id)){
+                        res.code = 400
+                        throw new Error("Email ተይዟል ሌላ ሞክር ጀለስ 😁 ")
+                    }
+                }
+                user.name = name || user.name
+                user.email = email || user.email
+                await user.save()
+                res.status(200).json({code:200,status:true,message:"profile updayed succesfully!",data:{user}})
             }
-
-            user.save()
-            res.status(200).json({code:200,status:true,message:"Profile updated successfully",data:user})
         } catch (error) {
             next(error)
         }
