@@ -1,3 +1,3 @@
 const errorHandler = require('./errorHandler')
-
-module.exports = {errorHandler}
+const isAdmin = require('./isAdmin')
+module.exports = {errorHandler,isAdmin}

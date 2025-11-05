@@ -5,4 +5,4 @@ const addingCatagoryValidator = [
 ]
 
 
-module.exports = {addingCatagoryValidator}
+module.exports = {addingCatagoryValidator} 
