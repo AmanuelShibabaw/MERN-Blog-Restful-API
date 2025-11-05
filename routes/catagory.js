@@ -6,5 +6,5 @@ const validate = require('../validator/validate')
 const validateToken = require('../middleware/validateTokenAuth')
 const isAdmin = require('../middleware/isAdmin')
 router.post('/add-catagory',validateToken,isAdmin,addingCatagoryValidator,validate,catagoryController.addCatag)
-
+router.put('/update/:id',validateToken,isAdmin,catagoryController.updateCatagory)
 module.exports = router
