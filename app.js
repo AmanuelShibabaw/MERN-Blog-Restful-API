@@ -6,7 +6,7 @@ dotenv.config()
 const connectMongodb = require('./init/mongoDB')
 const app = express()
 const {errorHandler} = require('./middleware')
-const {authRoute,catagoryRoute} = require('./routes')
+const {authRoute,catagoryRoute,fileRoute} = require('./routes')
 const notFound = require('./controllers/notFound')
 
 connectMongodb()
@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({limit: "500mb",extended: true }))
 app.use(morgan('dev'))//responsun console lay lemayet yteqmenal😁
 app.use('/api/v1/auth',authRoute)
 app.use('/api/v1/catagory',catagoryRoute)
+app.use('/api/v1/file',fileRoute)
 app.use(notFound)
 app.use(errorHandler)
 
