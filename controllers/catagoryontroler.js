@@ -71,4 +71,42 @@ const deleteCatag = async(req,res,next)=>{
         next(error)
     }
 }
-module.exports = {addCatag,updateCatagory,deleteCatag}
+
+const searchingCatag = async (req,res,next)=>{
+    try {
+        const {q,size,page}= req.query
+        let query = {}
+        const sizeNumber =parseInt(size)
+        const pageNumber = parseInt(page) || 1
+        if(q){
+            const search = RegExp(q,'i')
+            query = {$or:[{title:search},{desc:search}]}
+        }
+        const total = await Catagory.countDocuments(query)
+        const pages = Math.ceil(total/sizeNumber)
+        const catagories = await Catagory.find(query).skip((pageNumber - 1) * sizeNumber).limit(sizeNumber).sort({modifiedBy:-1})
+        if(catagories.length === 0){
+            res.code = 404
+            throw new Error("No catagory Found")
+        }
+        res.status(200).json({code:200,status:true,message:"catagories fetchedd successfully",
+            data:{catagories,total,pages}})
+
+    } catch (error) {
+        next(error)
+    }
+}
+const getSinglectagory = async (req,res,next)=>{
+    try {
+        const {id} = req.params
+        const catagory = await Catagory.findById({_id:id})
+        if(!catagory){
+            res.code = 404
+            throw new Error("catagory የለም ")
+        }
+        res.status(200).json({code:200,status:true,message:"catagory ተገኝቷል",data:{catagory}})
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports = {addCatag,updateCatagory,deleteCatag,searchingCatag,getSinglectagory}

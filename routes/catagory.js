@@ -8,4 +8,6 @@ const isAdmin = require('../middleware/isAdmin')
 router.post('/add-catagory',validateToken,isAdmin,addingCatagoryValidator,validate,catagoryController.addCatag)
 router.put('/update/:id',validateToken,isAdmin,validateId,validate,catagoryController.updateCatagory)
 router.delete('/delete/:id',validateToken,isAdmin,validateId,validate,catagoryController.deleteCatag)
+router.get('/search',validateToken,isAdmin,catagoryController.searchingCatag)
+router.get('/search-single/:id',validateToken,isAdmin,validateId,validate,catagoryController.getSinglectagory)
 module.exports = router
