@@ -7,4 +7,5 @@ const validateToken = require('../middleware/validateTokenAuth')
 const isAdmin = require('../middleware/isAdmin')
 router.post('/add-catagory',validateToken,isAdmin,addingCatagoryValidator,validate,catagoryController.addCatag)
 router.put('/update/:id',validateToken,isAdmin,validateId,validate,catagoryController.updateCatagory)
+router.delete('/delete/:id',validateToken,isAdmin,validateId,validate,catagoryController.deleteCatag)
 module.exports = router

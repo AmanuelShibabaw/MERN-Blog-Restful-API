@@ -37,8 +37,8 @@ const updateCatagory = async(req,res,next)=>{
             res.code = 400
             throw new Error("catagory not found")
         }
-        const formerCata = await Catagory.findOne({title})
-        if(catagoryexi && catagoryexi.title ===title && String(formerCata.id)===String(catagoryexi.id)){
+        const formerCata = await Catagory.findOne({title});
+        if(formerCata && String(formerCata._id) !== String(catagoryexi._id)){
             res.code = 400
             throw new Error("catagory title already teken")
         }
@@ -51,5 +51,24 @@ const updateCatagory = async(req,res,next)=>{
         next(error)
     }
 }
-
-module.exports = {addCatag,updateCatagory}
+const deleteCatag = async(req,res,next)=>{
+    try {
+        const userId = req.user.id
+        const {id} = req.params
+        const userex = await User.findById({_id:userId})
+        if(!userex){
+            res.code = 400
+            throw new Error("there is no user with such id")
+        }
+        const catagoryex = await Catagory.findById({_id:id})
+        if(!catagoryex){
+            res.code = 404
+            throw new Error("Catagory not exist!!")
+        }
+        await Catagory.findByIdAndDelete({_id:id})
+        res.status(200).json({code:200,status:true,message:"catagory deleted successfully"})
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports = {addCatag,updateCatagory,deleteCatag}
