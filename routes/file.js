@@ -4,6 +4,6 @@ const isAdmin = require('../middleware/isAdmin')
 const validateToken = require('../middleware/validateTokenAuth')
 const {fileController} = require('../controllers')
 const upload = require('../middleware/fileUploader')
-router.post('/upload',validateToken,isAdmin,upload.single("image"),fileController.uploadFile)
+router.post('/upload',validateToken,isAdmin,upload.array("image",3),fileController.uploadFile)
 
 module.exports = router
